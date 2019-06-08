@@ -1,5 +1,5 @@
 import {ILexer} from '../../../interfaces/ILexer';
-import {ctrl} from '../../../../main';
+import {ctrl} from '../../../..';
 import {regexPatterns} from '../../../classes/RegexPatterns';
 import {CompositeImportMixedImportNames} from './Composite.ImportMixedImportNames';
 

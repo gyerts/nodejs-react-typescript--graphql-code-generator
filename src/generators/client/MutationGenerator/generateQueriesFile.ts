@@ -114,7 +114,7 @@ export const generateQueriesFile = (mainInterfaceName: string, allInterfaces: II
       }
    });
 
-   const requestFilePath = `${options.clientOutDir}/mutation.queries.ts`;
+   const requestFilePath = `${options.clientOutDir.get()}/mutation.queries.ts`;
    fs.writeFile(requestFilePath, output, (err) => {
       if (err) {
          return console.error(err);

@@ -1,5 +1,5 @@
 import {IValidator} from './IValidator';
-import {ctrl} from '../../main';
+import {ctrl} from '../..';
 
 export abstract class ILexer {
    currentValidatorIndex: number = 0;

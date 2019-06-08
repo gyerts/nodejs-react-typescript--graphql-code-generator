@@ -6,7 +6,7 @@ import {genSchema} from '../generators/genSchema';
 export const generateGQLSchemaFile = (mainInterfaceName: string, allInterfaces: IInterface[]) => {
    const output = genSchema('query', mainInterfaceName, allInterfaces);
 
-   const requestFilePath = `${options.serverOutDir}/query.graphql`;
+   const requestFilePath = `${options.serverOutDir.get()}/query.graphql`;
    fs.writeFile(requestFilePath, output, (err) => {
       if (err) {
          return console.error(err);

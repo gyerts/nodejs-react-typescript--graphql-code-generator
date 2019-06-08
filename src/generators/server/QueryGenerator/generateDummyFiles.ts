@@ -6,12 +6,13 @@ import {IObjectPath} from '../../../classes/GQLObjectPath';
 import {InterfacesWalker} from '../../../classes/InterfacesWalker';
 import {ArrayContainer} from '../../helpers/ArrayContainer';
 import {genDummyFile} from '../generators/genDummyFile';
-const outputDir = `${options.serverOutDir}/dummy`;
 
 export const generateDummyFiles = (
    mainInterfaceName: string,
    allInterfaces: IInterface[],
 ) => {
+   const outputDir = `${options.serverOutDir.get()}/dummy`;
+
    if (!fs.existsSync(outputDir)) {
       fs.mkdirSync(outputDir);
    }

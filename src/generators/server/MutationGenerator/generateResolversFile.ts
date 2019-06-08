@@ -13,7 +13,7 @@ export const generateResolversFile = (
 ) => {
    const output = genResolver('mutation', allInterfaces, globalInterfaceName);
 
-   fs.writeFile(`${options.serverOutDir}/mutation.routes.ts`, output, (err) => {
+   fs.writeFile(`${options.serverOutDir.get()}/mutation.routes.ts`, output, (err) => {
       if (err) {
          return console.error(err);
       }

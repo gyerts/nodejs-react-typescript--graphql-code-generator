@@ -16,7 +16,7 @@ export const typeDefs = mergeTypes([subscriptionSchema, mutationSchema, querySch
 `;
 
 export const generateMergeTypesFile = () => {
-   const requestFilePath = `${options.serverOutDir}/mergedGQLSchemas.ts`;
+   const requestFilePath = `${options.serverOutDir.get()}/mergedGQLSchemas.ts`;
    fs.writeFile(requestFilePath, output, (err) => {
       if (err) {
          return console.error(err);

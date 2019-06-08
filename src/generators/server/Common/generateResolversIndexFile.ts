@@ -66,7 +66,7 @@ const output = (allInterfaces: IInterface[]) => {
 };
 
 export const generateResolversIndexFile = (allInterfaces: IInterface[]) => {
-   const requestFilePath = `${options.serverOutDir}/resolvers.ts`;
+   const requestFilePath = `${options.serverOutDir.get()}/resolvers.ts`;
 
    fs.writeFile(requestFilePath, output(allInterfaces), (err) => {
       if (err) {

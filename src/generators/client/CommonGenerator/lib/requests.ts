@@ -26,8 +26,7 @@ let headers = {};
 const wsLink = new WebSocketLink({
    uri: `ws://127.0.0.1:4001/graphql`,
    options: {
-      reconnect: true,
-      headers
+      reconnect: true
    }
 });
 

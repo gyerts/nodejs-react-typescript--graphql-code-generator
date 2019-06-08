@@ -5,7 +5,7 @@
  * ===================================================================
  */
 import {ILexer} from '../../../../../interfaces/ILexer';
-import {ctrl} from '../../../../../../main';
+import {ctrl} from '../../../../../..';
 import {CompositeListedNames} from './Composite.ListedNames';
 
 export class LexerNamedImportName extends ILexer {

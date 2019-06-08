@@ -46,7 +46,7 @@ const gen = (breadcrumbName: string, ownParams: IMethodParam[], op: IObjectPath,
 };
 
 export const generateInterfacesFile = (allInterfaces: IInterface[]) => {
-   const requestFilePath = `${options.serverOutDir}/interfaces.ts`;
+   const requestFilePath = `${options.serverOutDir.get()}/interfaces.ts`;
    let output = '';
    const handledInterfaceNames: string[] = [];
 

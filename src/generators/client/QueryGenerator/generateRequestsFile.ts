@@ -151,7 +151,7 @@ export const generateRequestsFile = (
 ) => {
    const output = genTransformedData(allInterfaces, globalInterfaceName);
 
-   fs.writeFile(`${options.clientOutDir}/query.requests.ts`, output, (err) => {
+   fs.writeFile(`${options.clientOutDir.get()}/query.requests.ts`, output, (err) => {
       if (err) {
          return console.error(err);
       }

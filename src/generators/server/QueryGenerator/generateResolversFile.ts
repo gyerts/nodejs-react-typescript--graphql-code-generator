@@ -9,7 +9,7 @@ export const generateResolversFile = (
 ) => {
    const output = genResolver('query', allInterfaces, globalInterfaceName);
 
-   fs.writeFile(`${options.serverOutDir}/query.routes.ts`, output, (err) => {
+   fs.writeFile(`${options.serverOutDir.get()}/query.routes.ts`, output, (err) => {
       if (err) {
          return console.error(err);
       }

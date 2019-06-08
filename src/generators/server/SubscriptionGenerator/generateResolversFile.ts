@@ -13,7 +13,7 @@ export const generateResolversFile = (
 ) => {
    const output = genResolver('subscription', allInterfaces, globalInterfaceName);
 
-   fs.writeFile(`${options.serverOutDir}/subscription.routes.ts`, output, (err) => {
+   fs.writeFile(`${options.serverOutDir.get()}/subscription.routes.ts`, output, (err) => {
       if (err) {
          return console.error(err);
       }

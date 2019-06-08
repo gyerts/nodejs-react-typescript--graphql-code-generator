@@ -1,26 +1,42 @@
 {
   "name": "nodejs-react-typescript--graphql-code-generator",
-  "version": "1.0.0",
+  "version": "1.0.20",
   "description": "",
-  "main": "src/main.js",
+  "main": "dist/index.js",
+  "types": "src/index.d.ts",
   "scripts": {
     "clean": "rm -rf ./dist",
-    "gen": "tsc && node dist/main.js && npm run clean"
+    "build": "tsc",
+    "gen": "tsc && node dist/index.js && npm run clean"
   },
   "author": "Yuriy Gyerts",
   "license": "ISC",
   "dependencies": {
-    "@types/recursive-readdir": "^2.2.0",
+    "apollo-boost": "^0.4.2",
+    "apollo-link-error": "^1.1.10",
+    "apollo-link-ws": "^1.0.17",
+    "apollo-utilities": "^1.3.2",
+    "graphql": "^14.3.1",
+    "graphql-tag": "^2.10.1",
+    "recursive-readdir": "^2.2.2",
+    "subscriptions-transport-ws": "^0.9.16"
+  },
+  "requires": {
     "apollo-boost": "^0.4.2",
     "apollo-link-error": "^1.1.10",
     "apollo-link-ws": "^1.0.17",
     "apollo-utilities": "^1.3.2",
     "graphql-tag": "^2.10.1",
     "recursive-readdir": "^2.2.2",
-    "subscriptions-transport-ws": "^0.9.16",
-    "typescript": "^3.4.5"
+    "subscriptions-transport-ws": "^0.9.16"
   },
   "devDependencies": {
-    "@types/node": "^12.0.0"
-  }
+    "@types/recursive-readdir": "^2.2.0",
+    "@types/node": "^12.0.0",
+    "typescript": "^3.4.5"
+  },
+  "bugs": {
+    "url": "https://github.com/gyerts/nodejs-react-typescript--graphql-code-generator/issues"
+  },
+  "homepage": "https://github.com/gyerts/nodejs-react-typescript--graphql-code-generator"
 }

@@ -37,7 +37,7 @@ export const generateInterfacesFile = (allInterfaces: IInterface[], globalInterf
    const walker = new InterfacesWalker(globalInterfaceName, allInterfaces, handler);
    walker.run();
 
-   fs.writeFile(options.clientOutDir + '/' + `query.interfaces.ts`, output, (err) => {
+   fs.writeFile(options.clientOutDir.get() + '/' + `query.interfaces.ts`, output, (err) => {
       if (err) {
          return console.error(err);
       }

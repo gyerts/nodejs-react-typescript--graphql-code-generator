@@ -1,7 +1,7 @@
 import {ILexer} from '../../../../../interfaces/ILexer';
 import {IMethod} from '../../../../../interfaces/IMethod';
 import {IMethodParam} from '../../../../../interfaces/IMethodParam';
-import {ctrl} from '../../../../../../main';
+import {ctrl} from '../../../../../..';
 import {regexPatterns} from '../../../../../classes/RegexPatterns';
 
 /**
