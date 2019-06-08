@@ -3,7 +3,7 @@ ___
 #### add gen script to your `package.json` file
 ___
 
-```
+```json
 {
    "scripts": {
       "gen": "node ./node_modules/nodejs-react-typescript--graphql-code-generator --server --dist='./src/generated' --if='../interface'",
@@ -19,7 +19,7 @@ where:
 ___
 #### add `server.ts` file
 ___
-```
+```typescript
 import {resolvers} from './generated/resolvers';
 import {typeDefs} from './generated/mergedGQLSchemas';
 import http from 'http';
@@ -50,7 +50,7 @@ httpServer.listen(PORT, () => {
 ```
 ___
 THAN RUN NEXT USUAL COMMANDS
-```
+```bash
 npm run gen
 npm run build
 npm run start
@@ -61,7 +61,7 @@ ___
 #### add gen script to your `package.json` file
 ___
 
-```
+```json
 {
    "scripts": {
       "gen": "node ./node_modules/nodejs-react-typescript--graphql-code-generator --client --dist='./src/generated' --if='../interface'",
@@ -75,7 +75,7 @@ where:
 
 ___
 THAN RUN NEXT USUAL COMMANDS
-```
+```bash
 npm run gen
 npm run build
 npm run start
@@ -84,9 +84,8 @@ ___
 
 # Simple usage use-case `IQuery`
 This code generator generates all server and client side code. 
-You need just to specify interface for communication in typescript style like:
-
-Put this code somewhere in the interfaces folder
+You need just to specify interface for communication in typescript style.
+Create file `IQuery.ts` in `interfaces folder` with the following content:
 ```typescript
 interface IUser {
    id: string;
@@ -111,9 +110,13 @@ interface IQuery {
    account: (token: string) => IAccount;
 }
 ```
+Run code generation
+```bash
+npm run gen
+```
 
 Than you will have next requests to use
-```
+```typescript
 // all generated code will be here in the generated folder
 import {query} from "./generated/query.requests";
 import {IAccount, IUser} from "./generated/query.interfaces";
@@ -121,7 +124,8 @@ import {IProject} from "./generated/query.interfaces";
 import {IShortProject} from "./generated/query.interfaces";
 
 class SomeComponent extends React.Component<any, any> {
-
+```
+```typescript
    // this method shows that not all generated requests you will want to use
    fetchWholeAccount = async () => {
       const accountToken = 'some token';
@@ -145,7 +149,8 @@ class SomeComponent extends React.Component<any, any> {
          console.log(`here will be available only two fields from IShortProject interfaces ${prj.id} ${prj.name}`);
       });
    };
-
+```
+```typescript
    // this method shows that you can define short interfaces if you want fetch not all data from node
    fetchShortProject = async () => {
       const accountToken = 'some token';
@@ -155,7 +160,8 @@ class SomeComponent extends React.Component<any, any> {
       console.log(shortProject.id);
       console.log(shortProject.name);
    };
-
+```
+```typescript
    // this method shows that not all generated requests you will want to use
    fetchProject = async () => {
       const accountToken = 'some token';
@@ -174,7 +180,8 @@ class SomeComponent extends React.Component<any, any> {
          console.log(`here will be available all IUser fields ${user.id} ${user.name} ${user.age}`);
       });
    };
-
+```
+```typescript
    // this method shows how to fetch concrete user data
    fetchShortProjects = async () => {
       const accountToken = 'some token';
@@ -184,7 +191,8 @@ class SomeComponent extends React.Component<any, any> {
          console.log(`here will be available only two fields from IShortProject interfaces ${prj.id} ${prj.name}`);
       });
    };
-
+```
+```typescript
    // this method shows how to fetch concrete user data
    fetchUser = async () => {
       const accountToken = 'some token';
@@ -196,7 +204,8 @@ class SomeComponent extends React.Component<any, any> {
       console.log(user.name);
       console.log(user.age);
    };
-
+```
+```typescript
    // this method shows how to fetch all users
    fetchUsers = async () => {
       const accountToken = 'some token';
