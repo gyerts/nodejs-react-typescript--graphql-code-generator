@@ -75,8 +75,12 @@ export function generateClient (dest: string, interfacesPath: string) {
 
    recursive(options.interfacesPath.get(), (err, files) => {
       files.map((filePath) => {
-         const text = fs.readFileSync(filePath, 'utf8');
-         readSymbols(text, ctrl);
+         if (filePath.endsWith('.ts')) {
+            const text = fs.readFileSync(filePath, 'utf8');
+            readSymbols(text, ctrl);
+         } else {
+            throw `file must have .ts extension, but ${filePath}`;
+         }
       });
 
       console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||');

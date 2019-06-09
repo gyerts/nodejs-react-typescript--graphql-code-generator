@@ -1,6 +1,6 @@
 export const regexPatterns = {
    import: {
-      path: /^'[\w_/.]+'$/g,
+      path: /^['"]{1}[\w_/.]+['"]{1}$/g,
    },
    nameConventions: {
       anyName: /^[\w_]+$/g,
