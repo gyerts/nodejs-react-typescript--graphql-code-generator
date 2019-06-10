@@ -73,6 +73,9 @@ export function generateClient (dest: string, interfacesPath: string) {
    options.clientOutDir.set(dest);
    options.interfacesPath.set(interfacesPath);
 
+   if (!fs.existsSync(options.interfacesPath.get())) {
+      throw `${options.interfacesPath.get()} does not exists, you have to specify absolute path`;
+   }
    recursive(options.interfacesPath.get(), (err, files) => {
       files.map((filePath) => {
          if (filePath.endsWith('.ts')) {
@@ -108,6 +111,10 @@ export function generateClient (dest: string, interfacesPath: string) {
 export function generateServer (dest: string, interfacesPath: string) {
    options.serverOutDir.set(dest);
    options.interfacesPath.set(interfacesPath);
+
+   if (!fs.existsSync(options.interfacesPath.get())) {
+      throw `${options.interfacesPath.get()} does not exists, you have to specify absolute path`;
+   }
 
    recursive(options.interfacesPath.get(), (err, files) => {
       files.map((filePath) => {

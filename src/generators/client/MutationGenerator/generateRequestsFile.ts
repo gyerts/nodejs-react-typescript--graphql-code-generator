@@ -4,7 +4,6 @@ import fs from 'fs';
 import {genMethodParams, genMethodParamsWithPrefix} from '../../helpers/genMethodParams';
 import {getFullListOfParamsNoParent} from '../../helpers/getFullListOfParamsNoParent';
 import {IBreadcrumb, IObjectPath} from '../../../classes/GQLObjectPath';
-import {IType} from '../../../parser/interfaces/IType';
 import {InterfacesWalker} from '../../../classes/InterfacesWalker';
 import {IMethodParam} from '../../../parser/interfaces/IMethodParam';
 import {getMutationResponseInterfaceName} from './generateInterfacesFile';
@@ -63,9 +62,11 @@ const transformDataForGeneration = (allInterfaces: IInterface[], globalInterface
       const objectPath = op.breadcrumbs.map(b => b.name).join('.');
       const prohibited = prohibitedPaths.find(p => objectPath.indexOf(p) !== -1);
       let allowed = true;
+
       if (prohibited && prohibited.length !== objectPath.length) {
          allowed = false;
       }
+
       if (op.type.array) {
          prohibitedPaths.push(objectPath);
       }
@@ -91,18 +92,14 @@ const genTransformedData = (allInterfaces: IInterface[], globalInterfaceName: st
    output += 'export const mutation = {';
 
    const entriesPath: string[] = [];
+   const nodeHolder = transformDataForGeneration(allInterfaces, globalInterfaceName);
 
-   const getPromiseTypeString = (type: IType) => {
-      return 'i.' + type.name + (type.array ? '[]' : '');
-   };
    const genFunction = (breadcrumbName: string, ownParams: IMethodParam[], op: IObjectPath) => {
       const __ = '\n' + tab_space.repeat(op.breadcrumbs.length);
       const ____ = '\n' + tab_space.repeat(op.breadcrumbs.length + 1);
       const ______ = '\n' + tab_space.repeat(op.breadcrumbs.length + 2);
-      const ________ = '\n' + tab_space.repeat(op.breadcrumbs.length + 3);
       const responseType = `i.${getNamespaceName(op)}.${getMutationResponseInterfaceName(op.breadcrumbs)}`;
       const joinedAllParams = op.signatureParams.map(p => p.name).join(', ');
-      const params = genMethodParams(getFullListOfParamsNoParent(op.type.name, allInterfaces));
 
       output += `${____}const response = await graphQlRequests.mutate<${responseType}>(`;
       output += `${______}q.${entriesPath.join('_')}_${op.type.name}_fields(${joinedAllParams})`;
@@ -110,25 +107,22 @@ const genTransformedData = (allInterfaces: IInterface[], globalInterfaceName: st
       output += `${____}console.log(response);`;
       output += `${____}return response.${entriesPath.join('.')};`;
    };
-   const nodeHolder = transformDataForGeneration(allInterfaces, globalInterfaceName);
 
    const handle = (node: Node) => {
       entriesPath.push(node.name);
       const ___ = '\n' + tab_space.repeat(entriesPath.length);
-      const ______ = '\n' + tab_space.repeat(entriesPath.length + 1);
-      const _________ = '\n' + tab_space.repeat(entriesPath.length + 2);
       const params = genMethodParamsWithPrefix(node.ownParams);
+      const interfaceName = node.variants[0].op.type.name;
 
-
-      if (Object.keys(node.children).length) {
+      if (Object.keys(node.children).length && interfaceName.endsWith('Actions')) {
          output += `${___}${node.name}: (${params}) => ({`;
          Object.keys(node.children).map(key => {
             handle(node.children[key]);
          });
          output += `${___}}),`;
       } else {
-         const promiceType = `i.${node.variants[0].op.type.name}`;
-         output += `${___}${node.name}: async (${params}): Promise<${promiceType}> => {`;
+         const promiseType = `i.${interfaceName}`;
+         output += `${___}${node.name}: async (${params}): Promise<${promiseType}> => {`;
          genFunction(node.name, node.variants[0].ownParams, node.variants[0].op);
          output += `${___}},`;
       }

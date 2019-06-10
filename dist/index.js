@@ -70,10 +70,18 @@ var readSymbols = function (text, ctrl) {
 function generateClient(dest, interfacesPath) {
     settings_1.options.clientOutDir.set(dest);
     settings_1.options.interfacesPath.set(interfacesPath);
+    if (!fs_1.default.existsSync(settings_1.options.interfacesPath.get())) {
+        throw settings_1.options.interfacesPath.get() + " does not exists, you have to specify absolute path";
+    }
     recursive_readdir_1.default(settings_1.options.interfacesPath.get(), function (err, files) {
         files.map(function (filePath) {
-            var text = fs_1.default.readFileSync(filePath, 'utf8');
-            readSymbols(text, exports.ctrl);
+            if (filePath.endsWith('.ts')) {
+                var text = fs_1.default.readFileSync(filePath, 'utf8');
+                readSymbols(text, exports.ctrl);
+            }
+            else {
+                throw "file must have .ts extension, but " + filePath;
+            }
         });
         console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||');
         console.log('|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||');
@@ -96,6 +104,9 @@ exports.generateClient = generateClient;
 function generateServer(dest, interfacesPath) {
     settings_1.options.serverOutDir.set(dest);
     settings_1.options.interfacesPath.set(interfacesPath);
+    if (!fs_1.default.existsSync(settings_1.options.interfacesPath.get())) {
+        throw settings_1.options.interfacesPath.get() + " does not exists, you have to specify absolute path";
+    }
     recursive_readdir_1.default(settings_1.options.interfacesPath.get(), function (err, files) {
         files.map(function (filePath) {
             var text = fs_1.default.readFileSync(filePath, 'utf8');
